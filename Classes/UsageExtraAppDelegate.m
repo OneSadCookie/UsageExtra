@@ -64,6 +64,11 @@
     [item setTitle:[NSString stringWithFormat:@"%d%%", (int)(100.0 * (double)diffUsed / (double)diffTotal)]];
 }
 
+- (void)openActivityMonitor:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.ActivityMonitor" options:0 additionalEventParamDescriptor:nil launchIdentifier:NULL];
+}
+
 @synthesize menu;
 
 @end
