@@ -1,12 +1,3 @@
-//
-//  UsageExtraAppDelegate.h
-//  UsageExtra
-//
-//  Created by Keith Bauer on 24/07/10.
-//  Copyright (c) 2010 __MyCompanyName__. All rights reserved.
-//
-
-
 @interface UsageExtraAppDelegate : NSObject <NSApplicationDelegate>
 {
     NSMenu       *menu;
@@ -25,4 +16,3 @@
 - (IBAction)quitFromMenu:(id)sender;
 
 @end
-

@@ -4,7 +4,7 @@
 
 @implementation UsageExtraAppDelegate
 
-- (void)getProcessorUsage:(unsigned long *)outUsed total:(unsigned long *)outTotal
+- (void)getProcessorUsage:(unsigned long *)outUsed total:(unsigned long *)outTotal cpuCount:(unsigned long *)outCPUCount
 {
 	natural_t cpuCount;
 	processor_info_array_t infoArray;
@@ -33,16 +33,21 @@
 
 	*outUsed = usedTicks;
 	*outTotal = totalTicks;
+    *outCPUCount = cpuCount;
 
 	vm_deallocate(mach_task_self(), (vm_address_t)infoArray, infoCount);
 }
 
 - (void)update:(id)_
 {
-    unsigned long used, total;
-    [self getProcessorUsage:&used total:&total];
+    unsigned long used, total, cpuCount;
+    [self getProcessorUsage:&used total:&total cpuCount:&cpuCount];
     
     unsigned long diffUsed = used - prevUsed, diffTotal = total - prevTotal;
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"normalizeCPUUsage"])
+    {
+        diffTotal /= cpuCount;
+    }
 		
     prevUsed = used;
     prevTotal = total;
@@ -82,7 +87,8 @@
     [item setHighlightMode:YES];
     [item setMenu:menu];
     
-    [self getProcessorUsage:&prevUsed total:&prevTotal];
+    unsigned long cpuCount;
+    [self getProcessorUsage:&prevUsed total:&prevTotal cpuCount:&cpuCount];
     [self openAtLogIn];
     [self update:nil];
     

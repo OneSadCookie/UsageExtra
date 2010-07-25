@@ -1,18 +1,12 @@
-//
-//  main.m
-//  UsageExtra
-//
-//  Created by Keith Bauer on 24/07/10.
-//  Copyright (c) 2010 __MyCompanyName__. All rights reserved.
-//
-
-
 #import <Cocoa/Cocoa.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char const *argv[])
 {
+    id pool = [[NSAutoreleasePool alloc] init];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
+        [NSNumber numberWithBool:YES], @"normalizeCPUUsage",
+        nil]];
+    [pool drain];
 
-    return NSApplicationMain(argc,  (const char **) argv);
-
+    return NSApplicationMain(argc, argv);
 }
-

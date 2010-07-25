@@ -39,29 +39,44 @@
 				<string key="NSTitle"/>
 				<object class="NSMutableArray" key="NSMenuItems">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="NSMenuItem" id="704306683">
+					<object class="NSMenuItem" id="50610814">
 						<reference key="NSMenu" ref="856371909"/>
-						<string key="NSTitle">Activity Monitor</string>
+						<string key="NSTitle">Normalize Usage to 100%</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
-						<object class="NSCustomResource" key="NSOnImage" id="966521113">
+						<object class="NSCustomResource" key="NSOnImage" id="138309766">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">NSMenuCheckmark</string>
 						</object>
-						<object class="NSCustomResource" key="NSMixedImage" id="53933871">
+						<object class="NSCustomResource" key="NSMixedImage" id="829106649">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">NSMenuMixedState</string>
 						</object>
+					</object>
+					<object class="NSMenuItem" id="704306683">
+						<reference key="NSMenu" ref="856371909"/>
+						<string key="NSTitle">Open Activity Monitor</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="138309766"/>
+						<reference key="NSMixedImage" ref="829106649"/>
 					</object>
 					<object class="NSMenuItem" id="670439942">
 						<reference key="NSMenu" ref="856371909"/>
 						<string key="NSTitle">Quit</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="966521113"/>
-						<reference key="NSMixedImage" ref="53933871"/>
+						<reference key="NSOnImage" ref="138309766"/>
+						<reference key="NSMixedImage" ref="829106649"/>
 					</object>
 				</object>
+			</object>
+			<object class="NSUserDefaultsController" id="183108653">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>normalizeCPUUsage</string>
+				</object>
+				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -98,6 +113,22 @@
 						<reference key="destination" ref="670439942"/>
 					</object>
 					<int key="connectionID">545</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.normalizeCPUUsage</string>
+						<reference key="source" ref="50610814"/>
+						<reference key="destination" ref="183108653"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="50610814"/>
+							<reference key="NSDestination" ref="183108653"/>
+							<string key="NSLabel">value: values.normalizeCPUUsage</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.normalizeCPUUsage</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">551</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -144,6 +175,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="670439942"/>
 							<reference ref="704306683"/>
+							<reference ref="50610814"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -156,6 +188,16 @@
 						<int key="objectID">539</int>
 						<reference key="object" ref="704306683"/>
 						<reference key="parent" ref="856371909"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">546</int>
+						<reference key="object" ref="50610814"/>
+						<reference key="parent" ref="856371909"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">547</int>
+						<reference key="object" ref="183108653"/>
+						<reference key="parent" ref="0"/>
 					</object>
 				</object>
 			</object>
@@ -179,7 +221,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">545</int>
+			<int key="maxID">551</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
