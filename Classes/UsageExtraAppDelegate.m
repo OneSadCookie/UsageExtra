@@ -37,20 +37,6 @@
 	vm_deallocate(mach_task_self(), (vm_address_t)infoArray, infoCount);
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    
-    item = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
-    [item setTitle:@"CPU%"];
-    [item setHighlightMode:YES];
-    [item setMenu:menu];
-    
-    [self getProcessorUsage:&prevUsed total:&prevTotal];
-    
-    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
-}
-
 - (void)update:(id)_
 {
     unsigned long used, total;
@@ -64,9 +50,54 @@
     [item setTitle:[NSString stringWithFormat:@"%d%%", (int)(100.0 * (double)diffUsed / (double)diffTotal)]];
 }
 
+- (void)openAtLogIn
+{
+    loginItems = LSSharedFileListCreate(
+        kCFAllocatorDefault,
+        kLSSharedFileListSessionLoginItems,
+        NULL);
+    if (!loginItems) return;
+    loginItem = LSSharedFileListInsertItemURL(
+        loginItems,
+        kLSSharedFileListItemLast,
+        NULL,
+        NULL,
+        (CFURLRef)[[NSBundle mainBundle] bundleURL],
+        NULL,
+        NULL);
+}
+
+- (void)dontOpenAtLogIn
+{
+    if (!loginItems || !loginItem) return;
+    LSSharedFileListItemRemove(loginItems, loginItem);
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    
+    item = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
+    [item setTitle:@"CPU%"];
+    [item setHighlightMode:YES];
+    [item setMenu:menu];
+    
+    [self getProcessorUsage:&prevUsed total:&prevTotal];
+    [self openAtLogIn];
+    [self update:nil];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(update:) userInfo:nil repeats:YES];
+}
+
 - (void)openActivityMonitor:(id)sender
 {
     [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.ActivityMonitor" options:0 additionalEventParamDescriptor:nil launchIdentifier:NULL];
+}
+
+- (IBAction)quitFromMenu:(id)sender
+{
+    [self dontOpenAtLogIn];
+    [NSApp terminate:sender];
 }
 
 @synthesize menu;
