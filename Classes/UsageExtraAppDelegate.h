@@ -1,18 +1,16 @@
+
+@class                CPUMonitor ;
 @interface UsageExtraAppDelegate : NSObject <NSApplicationDelegate>
 {
-    NSMenu       *menu;
-    NSStatusItem *item;
-    
-    LSSharedFileListRef     loginItems;
-    LSSharedFileListItemRef loginItem;
-    
-    unsigned long prevUsed;
-    unsigned long prevTotal;
+                    NSStatusItem * item;
+                      CPUMonitor * cpu;
+             LSSharedFileListRef   loginItems;
+         LSSharedFileListItemRef   loginItem;
 }
 
-@property (assign) IBOutlet NSMenu *menu;
+@property (weak) IBOutlet NSMenu * menu;
 
-- (IBAction)openActivityMonitor:(id)sender;
-- (IBAction)quitFromMenu:(id)sender;
+- (IBAction)  openActivityMonitor:(id)x;
+- (IBAction)         quitFromMenu:(id)x;
 
 @end
